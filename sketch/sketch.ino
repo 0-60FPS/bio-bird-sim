@@ -3,27 +3,55 @@ int B = 0;
 int C = 0;
 int D = 0;
 
-int p1a = 0;
+int a1 = 0;
+int b1 = 0;
+int a2 = 0;
+int b2 = 0;
+int a3 = 0;
+int b3 = 0;
+
+int oA1 = 0; //vars for offspring a f1
+int oA2 = 0;
+int oA3 = 0;
+int oA4 = 0;
+int oA5 = 0;
+int oA6 = 0;
+int oA7 = 0;
+int oA8 = 0;
+int oA9 = 0;
+
+int oB1 = 0; //vars for offspring b f1
+int oB2 = 0;
+int oB3 = 0;
+int oB4 = 0;
+int oB5 = 0;
+int oB6 = 0;
+int oB7 = 0;
+int oB8 = 0;
+int oB9 = 0;
+
+int p1a = 0; //variables for printing p1 generation
 int p2a = 0;
 int p3a = 0;
 int p4a = 0;
 
+
 int input = 0;
 
-int p = 0;
+int p = 0; //placeholding vars to keep program from looping crazily
 int p2 = 0;
 
-String allele_a = "aa";                               
+String allele_a = "aa"; //possible alleles for p1 generation                           
 String allele_b = "AA";
 String allele_c = "Aa";
+
+
 
 //------------------
 
 void setup() {
-  Serial.begin(9600);
-  randomSeed(analogRead(0));
-
-
+  
+  setupy ();
 
 }
 
@@ -32,19 +60,21 @@ void setup() {
 void loop() {
 
  if( Serial.available() ) {
-  if(p < 5) {
+  if(p < 1) {
   
-   input = Serial.read();         
-   Serial.print("Received: ");
-   Serial.println(input);
-
-   assignParentCoords ();  
-   printPCs ();
-
-   p++;
+  p5statement ();
+   
  }
 
+  assignParentCoords ();  
+  
+  printPCs ();
+  
   print_p1_Alleles ();
+
+  offspring1_ab ();
+
+  f1_psquare ();
  
 }
 
@@ -52,13 +82,36 @@ void loop() {
 
 //---------------------------
 
+void p5statement () {
+
+   input = Serial.read();
+   Serial.println();         
+   Serial.print("Input Received: ");
+   Serial.println(input);
+   Serial.println();
+   p++;
+  
+}
+
+void setupy () {
+
+  Serial.begin(9600);
+  randomSeed(analogRead(0));
+  
+}
+
 void printPCs () {
 
   Serial.println("Parents, Gen 1; 1-4"); //prints selected parents
+
+  Serial.println();
+  
   Serial.println(A);
   Serial.println(B);
   Serial.println(C);
   Serial.println(D);
+
+  Serial.println();
   
 }
 
@@ -69,9 +122,13 @@ void assignParentCoords () { //selects random parents
   C = random(1, 21);
   D = random(1, 21);
 
+  Serial.println();
+
 }
 
-void print_p1_Alleles () {
+void print_p1_Alleles () { //prints alleles for p1 generation
+
+  Serial.println("Genotypes (A-D)");
 
   if(p <= 4 && A == 3 || A == 4 || A == 5 ||
   A == 7 || A == 8 || A == 9 || A == 10 ||
@@ -81,6 +138,8 @@ void print_p1_Alleles () {
   
   Serial.println();
   Serial.println(allele_a);
+
+  a1 = 1;
     
   }
 
@@ -88,6 +147,8 @@ void print_p1_Alleles () {
 
   Serial.println();
   Serial.println(allele_b);
+
+  a2 = 2;
     
   }
 
@@ -95,6 +156,8 @@ void print_p1_Alleles () {
 
   Serial.println();
   Serial.println(allele_c);
+
+  a3 = 3;
     
   }
 
@@ -104,76 +167,109 @@ void print_p1_Alleles () {
   B == 15 || B == 16 || B == 17 || B == 18 ||
   B == 19 || B == 20) {
   
-  Serial.println();
   Serial.println(allele_a);
+
+  b1 = 1;
     
   }
 
   if(p <= 4 && B == 1) {
 
-  Serial.println();
   Serial.println(allele_b);
+
+  b2 = 2;
     
   }
 
   if(p <= 4 && B == 2 || B == 6){
 
-  Serial.println();
   Serial.println(allele_c);
+
+  b3 = 3;
     
   }
 
-if(p <= 4 && C == 3 || C == 4 || C == 5 ||
-  C == 7 || C == 8 || C == 9 || C == 10 ||
-  C == 11 || C == 12 || C == 13 || C == 14 ||
-  C == 15 || C == 16 || C == 17 || C == 18 ||
-  C == 19 || C == 20) {
-  
+
+}
+
+void offspring1_ab () {
+
+  if(a1 == 1 && b1 == 1) {
+
+  oA1 = random(5);
+    
+  }
+
+  if(a1 == 1 && b2 == 2) {
+
+  oA2 = random(5);
+    
+  }
+
+  if(a1 == 1 && b3 == 3) {
+
+  oA3 = random(5);
+
+  }
+
+  if(a2 == 2 && b1 == 1) {
+
+  oA4 = random(5);
+    
+  }
+  if(a2 == 2 && b2 == 2) {
+
+  oA5 = random(5);
+    
+  }
+
+  if(a2 == 2 && b3 == 3) {
+
+  oA6 = random(5);
+    
+  }
+
+  if(a3 == 3 && b1 == 1) {
+
+  oA7 = random(5);
+    
+  }
+
+  if(a3 == 3 && b2 == 2) {
+
+  oA8 = random(5);
+    
+  }
+
+  if(a3 == 3 && b3 == 3){
+
+  oA9 = random(5);
+    
+  }
+
+}
+
+void f1_psquare () {
+
+  if(oA1 <= 5 && oA1 > 0){
+
   Serial.println();
   Serial.println(allele_a);
     
   }
 
-  if(p <= 4 && C == 1) {
 
-  Serial.println();
-  Serial.println(allele_b);
-    
-  }
 
-  if(p <= 4 && C == 2 || C == 6){
-
-  Serial.println();
-  Serial.println(allele_c);
-    
-  }
-
-if(p <= 4 && D == 3 || D == 4 || D == 5 ||
-  D == 7 || D == 8 || D == 9 || D == 10 ||
-  D == 11 || D == 12 || D == 13 || D == 14 ||
-  D == 15 || D == 16 || D == 17 || D == 18 ||
-  D == 19 || D == 20) {
-  
-  Serial.println();
-  Serial.println(allele_a);
-    
-  }
-
-  if(p <= 4 && D == 1) {
-
-  Serial.println();
-  Serial.println(allele_b);
-    
-  }
-
-  if(p <= 4 && D == 2 || D == 6){
-
-  Serial.println();
-  Serial.println(allele_c);
-    
-  }
 
 
   
 }
+
+
+
+
+
+
+
+
 
